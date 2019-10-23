@@ -9,16 +9,16 @@ def populacja(ile_osobnikow,ile_chromosomow):
     return populacja
 
 a=populacja(20,14)
-'''
+
+
 def ocena_przystosowania(populacja):
     test=[ord('K'),ord('O'),ord('G'),ord('N'),ord('I'),ord('T'),ord('Y'),ord('W'),ord('I'),ord('S'),ord('T'),ord('Y'),ord('K'),ord('A')]
-    różnice=[0*len(populacja)]
+    różnice=[0]*len(populacja)
     for i in range(len(populacja)):
         for q in range(len(populacja[i])):
-            różnice[i]+=math.fabs(test[q]-populacja[i][q])
+            różnice[i]+=int(math.fabs(test[q]-populacja[i][q]))
     return min(różnice)
 
 
 
 print(ocena_przystosowania(a))
-'''
