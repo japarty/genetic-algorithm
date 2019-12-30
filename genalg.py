@@ -3,6 +3,8 @@ import math
 import numpy as np
 import pandas as pd
 from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier as KNC
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score
 
@@ -46,9 +48,9 @@ def fitness_evaluation(population,data,target,test,test_target):
                 ind_data[q] = pd.Series(data[q])
                 ind_test[q] = pd.Series(test[q])
             n+=1
-        clf = SVC(gamma = 'auto')
+        clf = LDA()
         clf.fit(ind_data, target)
-        SVC(gamma = 'auto')
+        LDA()
         new=clf.predict(ind_test)
         fitness[i]=accuracy_score(new,test_target)
     return fitness
@@ -98,7 +100,8 @@ def gen_alg(HOW_MANY_CHROMOSOMES,HOW_MANY_GENES,CROSSING_CHANCE,MUTATION_CHANCE)
         population = crossing(population,CROSSING_CHANCE)
         population = mutation(population,MUTATION_CHANCE)
         fitness = fitness_evaluation(population,data,target,test,test_target)
-        print(loops,": ",max(fitness))
+        len_pop = [sum(i) for i in population]
+        print(loops,": ",max(fitness),len_pop,sum(population[fitness.index(max(fitness))]))
     return population,fitness
 
 populacja,jakifitnes=gen_alg(HOW_MANY_CHROMOSOMES,HOW_MANY_GENES,CROSSING_CHANCE,MUTATION_CHANCE)
